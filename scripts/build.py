@@ -140,16 +140,29 @@ def author_note(r):
     if not a: return ""
     lines = "".join(f"<p>{e(x)}</p>" for x in a["lines"])
     return f'''
-    <section class="author-note wrap" aria-label="關於寫的人">
+    <section class="author-note wrap" aria-label="寫的人與電子報">
       <div class="author-inner">
         {picture(r, {"img":"mascot"}, alt="黎題")}
         <div class="author-text">
           <span class="tag-en">FROM THE WRITER</span>
           {lines}
           <div class="author-sign">—— {e(a["name"])}　<a href="{r}submit/">寫給我 →</a></div>
+          <div class="author-sub" id="subscribe">
+            <span class="tag-en">NEWSLETTER</span>
+            <h2>把離題，寄到你的信箱</h2>
+            <p class="intro">{SITE["newsletterIntro"]}</p>
+            {subscribe_form()}
+          </div>
         </div>
       </div>
     </section>'''
+
+def subscribe_form():
+    return f'''<form class="subscribe-form" id="subscribeForm" data-endpoint="{SITE["newsletterEndpoint"]}" novalidate>
+          <input type="email" id="subscribeEmail" name="email" placeholder="輸入你的 e-mail" aria-label="電子信箱" autocomplete="email" inputmode="email" />
+          <button type="submit">訂閱</button>
+        </form>
+        <p class="subscribe-msg" id="subscribeMsg" role="status" aria-live="polite">只寄離題生活的文章，不寄廣告，隨時可以取消。</p>'''
 
 def subscribe():
     return f'''
@@ -158,11 +171,7 @@ def subscribe():
         <span class="tag-en">NEWSLETTER</span>
         <h2>把離題，寄到你的信箱</h2>
         <p class="intro">{SITE["newsletterIntro"]}</p>
-        <form class="subscribe-form" id="subscribeForm" data-endpoint="{SITE["newsletterEndpoint"]}" novalidate>
-          <input type="email" id="subscribeEmail" name="email" placeholder="輸入你的 e-mail" aria-label="電子信箱" autocomplete="email" inputmode="email" />
-          <button type="submit">訂閱</button>
-        </form>
-        <p class="subscribe-msg" id="subscribeMsg" role="status" aria-live="polite">只寄離題生活的文章，不寄廣告，隨時可以取消。</p>
+        {subscribe_form()}
       </div>
     </section>'''
 
@@ -172,18 +181,23 @@ def footer(r):
     return f'''
     <footer>
       <div class="wrap">
-        <div class="foot-layout">
-          {picture(r, {"img":"mascot"}, alt="")}
-          <div class="foot-content">
+        <div class="foot-flat">
+          <div class="foot-brand">
             <div class="foot-name">{SITE["name"]}</div>
             <div class="foot-en">{SITE["nameEn"]}</div>
             <div class="foot-slogan">{SITE["slogan"]}</div>
-            <div class="foot-nav">{fnav}<a href="{r}articles/">全部文章</a><a href="{r}about/">關於離題</a><a href="{r}#subscribe">訂閱電子報</a></div>
-            <div class="foot-social" aria-label="離題生活社群媒體">
-              <div class="foot-social-head"><span class="foot-social-label">離題生活社群媒體</span><span class="foot-social-en">FOLLOW US</span></div>
-              <p class="foot-social-intro">在社群上繼續離題，追蹤最新文章與日常碎念。</p>
-              <div class="foot-social-links">{soc}</div>
-            </div>
+          </div>
+          <div class="foot-col">
+            <div class="foot-col-head">閱讀</div>
+            <div class="foot-links">{fnav}<a href="{r}articles/">全部文章</a></div>
+          </div>
+          <div class="foot-col">
+            <div class="foot-col-head">離題生活</div>
+            <div class="foot-links"><a href="{r}about/">關於離題</a><a href="{r}submit/">離友內心戲</a><a href="{r}#subscribe">訂閱電子報</a></div>
+          </div>
+          <div class="foot-col" aria-label="離題生活社群媒體">
+            <div class="foot-col-head">FOLLOW US</div>
+            <div class="foot-links foot-social-links">{soc}</div>
           </div>
         </div>
         <div class="copy">© 2026 {SITE["name"]} {SITE["nameEn"]}</div>
@@ -310,7 +324,7 @@ def build_home():
       <div class="section-tag"><span class="tag-en">COLUMNS</span><span class="tag-zh">看見、點破，然後離題一下</span></div>
       <div class="cat-grid">{cats}</div>
     </section>
-''' + author_note(r) + subscribe() + footer(r) + tail(r)
+''' + author_note(r) + footer(r) + tail(r)
     write("index.html", page)
 
 def build_all_articles():

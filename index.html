@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css?v=872aa0fd" />
+    <link rel="stylesheet" href="./assets/style.css?v=33eec5f0" />
   </head>
   <body>
     <header class="wrap">
@@ -125,47 +125,50 @@
         </div></div>
     </section>
 
-    <section class="author-note wrap" aria-label="關於寫的人">
+    <section class="author-note wrap" aria-label="寫的人與電子報">
       <div class="author-inner">
         <picture><source srcset="./images/mascot.webp" type="image/webp" /><img src="./images/mascot.jpg" alt="黎題" loading="lazy" decoding="async" class="" /></picture>
         <div class="author-text">
           <span class="tag-en">FROM THE WRITER</span>
           <p>我叫「黎題」，這裡是我的生活觀察。訊息看了不一定回，但演了好幾齣內心戲。</p><p>文章中寫的不一定都是我的經驗，但一定是我們心裡都演過、卻沒說出口的戲。</p><p>如果你心裡也有一個無限迴圈的小宇宙，歡迎分享給我，我們在重複的日子裡，一起離題一下。</p>
           <div class="author-sign">—— 黎題　<a href="./submit/">寫給我 →</a></div>
-        </div>
-      </div>
-    </section>
-    <section class="subscribe wrap" id="subscribe" aria-label="電子報訂閱">
-      <div class="subscribe-inner">
-        <span class="tag-en">NEWSLETTER</span>
-        <h2>把離題，寄到你的信箱</h2>
-        <p class="intro">每週一封，寄給在重複日子裡，偶爾想離題一下的你。</p>
-        <form class="subscribe-form" id="subscribeForm" data-endpoint="https://api-backend.app.newsleopard.com/api/contacts/subscribe/40289cb1a19faafc01a1a0146f5a003f/verify" novalidate>
+          <div class="author-sub" id="subscribe">
+            <span class="tag-en">NEWSLETTER</span>
+            <h2>把離題，寄到你的信箱</h2>
+            <p class="intro">每週一封，寄給在重複日子裡，偶爾想離題一下的你。</p>
+            <form class="subscribe-form" id="subscribeForm" data-endpoint="https://api-backend.app.newsleopard.com/api/contacts/subscribe/40289cb1a19faafc01a1a0146f5a003f/verify" novalidate>
           <input type="email" id="subscribeEmail" name="email" placeholder="輸入你的 e-mail" aria-label="電子信箱" autocomplete="email" inputmode="email" />
           <button type="submit">訂閱</button>
         </form>
         <p class="subscribe-msg" id="subscribeMsg" role="status" aria-live="polite">只寄離題生活的文章，不寄廣告，隨時可以取消。</p>
+          </div>
+        </div>
       </div>
     </section>
     <footer>
       <div class="wrap">
-        <div class="foot-layout">
-          <picture><source srcset="./images/mascot.webp" type="image/webp" /><img src="./images/mascot.jpg" alt="" loading="lazy" decoding="async" class="" /></picture>
-          <div class="foot-content">
+        <div class="foot-flat">
+          <div class="foot-brand">
             <div class="foot-name">離題生活</div>
             <div class="foot-en">INDEPENDENT LIFE JOURNAL</div>
             <div class="foot-slogan">日子重複的時候，就離題一下</div>
-            <div class="foot-nav"><a href="./columns/rethink/">生活異思</a><a href="./columns/absurd/">荒謬觀察</a><a href="./columns/practice/">人生練習</a><a href="./articles/">全部文章</a><a href="./about/">關於離題</a><a href="./#subscribe">訂閱電子報</a></div>
-            <div class="foot-social" aria-label="離題生活社群媒體">
-              <div class="foot-social-head"><span class="foot-social-label">離題生活社群媒體</span><span class="foot-social-en">FOLLOW US</span></div>
-              <p class="foot-social-intro">在社群上繼續離題，追蹤最新文章與日常碎念。</p>
-              <div class="foot-social-links"><a href="https://www.facebook.com/litinotes" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 4h-2.5A3.5 3.5 0 0 0 9 7.5V10H6.5v3H9v7h3.2v-7h2.6l.7-3h-3.3V7.8c0-.5.4-.8.9-.8H15V4Z"/></svg><span>Facebook 粉專「離題生活」</span></a><a href="https://www.instagram.com/litinotes/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg><span>Instagram @litinotes</span></a><a href="https://www.threads.com/@litinotes" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5c2.8 1 4.2 3.4 4 6.6-.1 3.4-1.8 5.4-4.2 5.4-2 0-3.3-1.3-3.3-3.2 0-2 1.5-3.4 3.7-3.4 1.5 0 2.7.7 3.3 1.8M17.5 5.6c1.9 1.9 3 4.3 3 6.9 0 4.7-3.4 7.5-8.5 7.5-4.9 0-8.5-3.6-8.5-8s3.6-8 8.5-8c2 0 3.8.6 5.2 1.7"/></svg><span>Threads @litinotes</span></a><a href="https://line.me/R/ti/p/@jnr0412n" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5c0 4.7-4 8.5-9 8.5-1 0-2-.2-2.9-.5L4 21l1.6-3.9C4.6 15.6 3 13.7 3 11.5 3 6.8 7 3 12 3s9 3.8 9 8.5Z"/></svg><span>LINE @jnr0412n</span></a></div>
-            </div>
+          </div>
+          <div class="foot-col">
+            <div class="foot-col-head">閱讀</div>
+            <div class="foot-links"><a href="./columns/rethink/">生活異思</a><a href="./columns/absurd/">荒謬觀察</a><a href="./columns/practice/">人生練習</a><a href="./articles/">全部文章</a></div>
+          </div>
+          <div class="foot-col">
+            <div class="foot-col-head">離題生活</div>
+            <div class="foot-links"><a href="./about/">關於離題</a><a href="./submit/">離友內心戲</a><a href="./#subscribe">訂閱電子報</a></div>
+          </div>
+          <div class="foot-col" aria-label="離題生活社群媒體">
+            <div class="foot-col-head">FOLLOW US</div>
+            <div class="foot-links foot-social-links"><a href="https://www.facebook.com/litinotes" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 4h-2.5A3.5 3.5 0 0 0 9 7.5V10H6.5v3H9v7h3.2v-7h2.6l.7-3h-3.3V7.8c0-.5.4-.8.9-.8H15V4Z"/></svg><span>Facebook 粉專「離題生活」</span></a><a href="https://www.instagram.com/litinotes/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg><span>Instagram @litinotes</span></a><a href="https://www.threads.com/@litinotes" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5c2.8 1 4.2 3.4 4 6.6-.1 3.4-1.8 5.4-4.2 5.4-2 0-3.3-1.3-3.3-3.2 0-2 1.5-3.4 3.7-3.4 1.5 0 2.7.7 3.3 1.8M17.5 5.6c1.9 1.9 3 4.3 3 6.9 0 4.7-3.4 7.5-8.5 7.5-4.9 0-8.5-3.6-8.5-8s3.6-8 8.5-8c2 0 3.8.6 5.2 1.7"/></svg><span>Threads @litinotes</span></a><a href="https://line.me/R/ti/p/@jnr0412n" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5c0 4.7-4 8.5-9 8.5-1 0-2-.2-2.9-.5L4 21l1.6-3.9C4.6 15.6 3 13.7 3 11.5 3 6.8 7 3 12 3s9 3.8 9 8.5Z"/></svg><span>LINE @jnr0412n</span></a></div>
           </div>
         </div>
         <div class="copy">© 2026 離題生活 INDEPENDENT LIFE JOURNAL</div>
       </div>
     </footer>
-    <script src="./assets/site.js?v=872aa0fd" defer></script>
+    <script src="./assets/site.js?v=33eec5f0" defer></script>
   </body>
 </html>
