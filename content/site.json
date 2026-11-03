@@ -40,9 +40,26 @@
   "collab": "如果你是品牌、書店、咖啡館、課程、工作坊或活動，想一起為上班族做一點「出口」，例如聯名專欄、實體的離題夜、職場主題的小講座，歡迎來信聊聊。",
   "newsletterIntro": "每週一封，寄給在重複日子裡，偶爾想離題一下的你。",
   "social": [
-    {"key": "facebook", "label": "Facebook 粉專「離題生活」", "url": "https://www.facebook.com/litinotes"},
-    {"key": "instagram", "label": "Instagram @litinotes", "url": "https://www.instagram.com/litinotes/"},
-    {"key": "threads", "label": "Threads @litinotes", "url": "https://www.threads.com/@litinotes"},
-    {"key": "line", "label": "LINE @jnr0412n", "url": "https://line.me/R/ti/p/@jnr0412n"}
-  ]
+    {
+      "key": "facebook",
+      "label": "Facebook 粉專「離題生活」",
+      "url": "https://www.facebook.com/litinotes"
+    },
+    {
+      "key": "instagram",
+      "label": "Instagram @litinotes",
+      "url": "https://www.instagram.com/litinotes/"
+    },
+    {
+      "key": "threads",
+      "label": "Threads @litinotes",
+      "url": "https://www.threads.com/@litinotes"
+    },
+    {
+      "key": "line",
+      "label": "LINE @jnr0412n",
+      "url": "https://line.me/R/ti/p/@jnr0412n"
+    }
+  ],
+  "newsletterEndpoint": "https://api-backend.app.newsleopard.com/api/contacts/subscribe/40289cb1a19faafc01a1a0146f5a003f/verify"
 }

@@ -140,11 +140,11 @@ def subscribe():
         <span class="tag-en">NEWSLETTER</span>
         <h2>把離題，寄到你的信箱</h2>
         <p class="intro">{SITE["newsletterIntro"]}</p>
-        <form class="subscribe-form" id="subscribeForm" novalidate>
+        <form class="subscribe-form" id="subscribeForm" data-endpoint="{SITE["newsletterEndpoint"]}" novalidate>
           <input type="email" id="subscribeEmail" name="email" placeholder="輸入你的 e-mail" aria-label="電子信箱" autocomplete="email" inputmode="email" />
           <button type="submit">訂閱</button>
         </form>
-        <p class="subscribe-msg" id="subscribeMsg" role="status" aria-live="polite">訂閱信箱服務接通後，即可在此訂閱，第一時間收到新文章。</p>
+        <p class="subscribe-msg" id="subscribeMsg" role="status" aria-live="polite">只寄離題生活的文章，不寄廣告，隨時可以取消。</p>
       </div>
     </section>'''
 

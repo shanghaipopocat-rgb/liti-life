@@ -166,8 +166,27 @@
         msg.className = "subscribe-msg is-error"; input.focus(); return;
       }
       track("subscribe_attempt");
-      msg.textContent = "謝謝你想訂閱。訂閱信箱服務尚未接通，這次輸入的信箱不會被儲存；服務開通後，請再回來這裡訂閱一次。";
-      msg.className = "subscribe-msg is-ok";
+      var btn = form.querySelector("button");
+      btn.disabled = true;
+      msg.textContent = "寄送中……";
+      msg.className = "subscribe-msg";
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", form.getAttribute("data-endpoint"), true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        btn.disabled = false;
+        if (xhr.status >= 200 && xhr.status < 300) {
+          track("generate_lead", { method: "newsletter" });
+          msg.textContent = "還差一步：確認信已寄到你的信箱，點信裡的連結就完成訂閱了。沒看到的話，記得看一下垃圾郵件匣。";
+          msg.className = "subscribe-msg is-ok";
+          input.value = "";
+        } else {
+          msg.textContent = "現在好像塞車了，請稍後再試一次。";
+          msg.className = "subscribe-msg is-error";
+        }
+      };
+      xhr.send("email=" + encodeURIComponent(input.value.trim()));
     });
     input.addEventListener("input", function () {
       if (msg.className.indexOf("is-error") !== -1) { msg.textContent = idle; msg.className = "subscribe-msg"; }
