@@ -133,6 +133,22 @@ def nav(r, current=""):
         for name, u, cls in items)
     return f'\n    <nav class="mainnav" aria-label="主選單"><div class="wrap">{links}</div></nav>'
 
+def author_note(r):
+    a = SITE.get("author")
+    if not a: return ""
+    lines = "".join(f"<p>{e(x)}</p>" for x in a["lines"])
+    return f'''
+    <section class="author-note wrap" aria-label="關於寫的人">
+      <div class="author-inner">
+        {picture(r, {"img":"mascot"}, alt="黎題")}
+        <div class="author-text">
+          <span class="tag-en">FROM THE WRITER</span>
+          {lines}
+          <div class="author-sign">—— {e(a["name"])}　<a href="{r}submit/">寫給我 →</a></div>
+        </div>
+      </div>
+    </section>'''
+
 def subscribe():
     return f'''
     <section class="subscribe wrap" id="subscribe" aria-label="電子報訂閱">
@@ -292,7 +308,7 @@ def build_home():
       <div class="section-tag"><span class="tag-en">COLUMNS</span><span class="tag-zh">看見、點破，然後離題一下</span></div>
       <div class="cat-grid">{cats}</div>
     </section>
-''' + subscribe() + footer(r) + tail(r)
+''' + author_note(r) + subscribe() + footer(r) + tail(r)
     write("index.html", page)
 
 def build_all_articles():
