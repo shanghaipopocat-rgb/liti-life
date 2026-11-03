@@ -219,7 +219,7 @@ def build_home():
     feat = next((a for a in ARTS if a.get("featured")), ARTS[0])
     wide = next((a for a in ARTS if a.get("wide") and a is not feat), None)
     latest = [a for a in ARTS if a is not feat and a is not wide][:6]
-    today_btns = "".join(f'<button class="today-share-btn" type="button" data-today-share="{k}">{icon(ic)}{lbl}</button>'
+    today_btns = "".join(f'<button class="today-share-btn" type="button" data-today-share="{k}" aria-label="{lbl}" title="{lbl}">{icon(ic)}<span>{lbl}</span></button>'
         for k, ic, lbl in [("line","line","LINE"),("facebook","facebook","Facebook"),("threads","threads","Threads"),("card","instagram","下載圖卡"),("copy","copy","複製")])
     scenes = "".join(f'<button class="scene-btn{" active" if i==0 else ""}" data-scene="{i}">{e(s)}</button>' for i, s in enumerate(TODAY["scenes"]))
     cats = "".join(f'''
@@ -272,7 +272,7 @@ def build_home():
       <div class="wrap">
         <span class="tag-en">TODAY'S TOPIC</span>
         <h2>今天聊什麼</h2>
-        <p class="intro">日子一樣的時候，先離題三分鐘。選一個你現在的狀態，每個狀態有 50 題，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</p>
+        <p class="intro">日子一樣的時候，先離題三分鐘。<span class="intro-more">選一個你現在的狀態，每個狀態有 50 題，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</span></p>
         <div class="scene-row" role="group" aria-label="選擇現在的狀態">{scenes}</div>
         <div class="prompt-card">
           <p class="q" id="promptQ"></p>
