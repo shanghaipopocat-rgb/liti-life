@@ -290,7 +290,7 @@ def build_home():
       <div class="wrap">
         <span class="tag-en">TODAY'S TOPIC</span>
         <h2>今天聊什麼</h2>
-        <p class="intro">日子一樣的時候，先離題三分鐘。<span class="intro-more">選一個你現在的狀態，每個狀態有 50 題，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</span></p>
+        <p class="intro">日子一樣的時候，先離題一分鐘。<span class="intro-more">選一個你現在的狀態，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</span></p>
         <div class="scene-row" role="group" aria-label="選擇現在的狀態">{scenes}</div>
         <div class="prompt-card">
           <p class="q" id="promptQ"></p>
