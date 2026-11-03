@@ -1,0 +1,48 @@
+{
+  "name": "離題生活",
+  "nameEn": "INDEPENDENT LIFE JOURNAL",
+  "tagline": "一本正經地離題",
+  "slogan": "日子重複的時候，就離題一下",
+  "baseUrl": "https://shanghaipopocat-rgb.github.io/liti-life",
+  "gaId": "G-36DVDGNFQL",
+  "email": "wishbirdspace@gmail.com",
+  "description": "離題生活 INDEPENDENT LIFE JOURNAL — 在一模一樣的日子裡找一個出口，也順手點破那些大家都懂、卻沒人說破的小虛偽。生活異思、荒謬觀察、人生練習。",
+  "statementLead": "上班、開會、回訊息、睡覺，<br />日子很像，但人不必一直照著走。",
+  "statementSub": "我們在重複裡找出口，也把那些大家都懂、卻沒人說破的小虛偽，輕輕翻過來看。看見、點破，然後離題一下。",
+  "categories": [
+    {
+      "slug": "rethink",
+      "name": "生活異思",
+      "en": "RETHINK",
+      "num": "01",
+      "role": "看見",
+      "desc": "換個角度看日常。理所當然的小事，換個位置坐下來看，重複的日子就多了一道縫。"
+    },
+    {
+      "slug": "absurd",
+      "name": "荒謬觀察",
+      "en": "ABSURD",
+      "num": "02",
+      "role": "點破",
+      "desc": "群組裡的「收到」、會議上的「認同」、離職時的「想休息」。點破人性的小虛偽，順便承認：我們自己也很會。"
+    },
+    {
+      "slug": "practice",
+      "name": "人生練習",
+      "en": "PRACTICE",
+      "num": "03",
+      "role": "出口",
+      "desc": "找出口不靠一次大轉彎，靠很多次小離題。休息、拒絕、放空、說真話，都是練習才會的事。"
+    }
+  ],
+  "aboutWho": "離題生活是一本寫給上班族的獨立生活雜誌。我們相信，日子會重複，但人不必一直照著走；也相信，很多讓人累的事，不是事情本身，而是大家心照不宣的那層假裝。所以我們做兩件事：在重複的日子裡找出口，把那些大家都懂、卻沒人說破的小虛偽，一本正經地說出來。不給標準答案，只給你多一個角度。寫下來，是想有一天遇見你，發現不是只有我這樣想。",
+  "openCall": "如果你也有一個想離題的時刻，或一句明明很假、大家卻都在說的話，歡迎寫給我們。一段話、一個故事都可以，願意的話也可以匿名。",
+  "collab": "如果你是品牌、書店、咖啡館、課程、工作坊或活動，想一起為上班族做一點「出口」，例如聯名專欄、實體的離題夜、職場主題的小講座，歡迎來信聊聊。",
+  "newsletterIntro": "每週一封，寄給在重複日子裡，偶爾想離題一下的你。",
+  "social": [
+    {"key": "facebook", "label": "Facebook 粉專「離題生活」", "url": "https://www.facebook.com/Lanjiefood"},
+    {"key": "instagram", "label": "Instagram @litinotes", "url": "https://www.instagram.com/litinotes/"},
+    {"key": "threads", "label": "Threads @litinotes", "url": "https://www.threads.com/@litinotes"},
+    {"key": "line", "label": "LINE @jnr0412n", "url": "https://line.me/R/ti/p/@jnr0412n"}
+  ]
+}
