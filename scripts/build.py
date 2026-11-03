@@ -383,6 +383,17 @@ def build_about():
     </main>''' + subscribe() + footer(r) + tail(r)
     write("about/index.html", page)
 
+def build_subscribed():
+    r = "../"
+    page = head(r, f'訂閱完成｜{SITE["name"]}', SITE["description"], f"{BASE}/subscribed/") + masthead(r, True) + nav(r) + f'''
+    <main class="wrap"><div class="notfound">
+      <div class="big">訂閱完成，歡迎一起離題</div>
+      <p>下一封信會準時寄到你的信箱。在那之前，先挑一篇看看吧。</p>
+      <div class="see-all"><a href="{r}articles/">看全部文章</a></div>
+    </div></main>
+    <script>try{{gtag("event","sign_up",{{method:"newsletter"}});}}catch(e){{}}</script>''' + footer(r) + tail(r)
+    write("subscribed/index.html", page)
+
 def build_404():
     # GitHub Pages 的 404 可能出現在任何路徑，所以用絕對網址
     r = BASE + "/"
@@ -402,6 +413,6 @@ def build_sitemap():
 
 if __name__ == "__main__":
     build_home(); build_all_articles(); build_categories(); build_article_pages()
-    build_about(); build_404(); build_sitemap()
+    build_about(); build_subscribed(); build_404(); build_sitemap()
     write(".nojekyll", "")
     print(f"完成：{len(ARTS)} 篇文章，{len(SITE['categories'])} 個分類")
