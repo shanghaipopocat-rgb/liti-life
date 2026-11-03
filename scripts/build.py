@@ -218,6 +218,8 @@ def build_home():
     feat = next((a for a in ARTS if a.get("featured")), ARTS[0])
     wide = next((a for a in ARTS if a.get("wide") and a is not feat), None)
     latest = [a for a in ARTS if a is not feat and a is not wide][:6]
+    today_btns = "".join(f'<button class="today-share-btn" type="button" data-today-share="{k}">{icon(ic)}{lbl}</button>'
+        for k, ic, lbl in [("line","line","LINE"),("facebook","facebook","Facebook"),("threads","threads","Threads"),("card","instagram","下載圖卡"),("copy","copy","複製")])
     scenes = "".join(f'<button class="scene-btn{" active" if i==0 else ""}" data-scene="{i}">{e(s)}</button>' for i, s in enumerate(TODAY["scenes"]))
     cats = "".join(f'''
         <div class="cat-item">
@@ -265,16 +267,21 @@ def build_home():
       </section>
     </main>
 
-    <section class="today" id="today" aria-label="今天聊什麼">
+    <section class="today" id="today" aria-label="今天聊什麼" data-url="{BASE}/">
       <div class="wrap">
         <span class="tag-en">TODAY'S TOPIC</span>
         <h2>今天聊什麼</h2>
-        <p class="intro">日子一樣的時候，先離題三分鐘。選一個你現在的狀態，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</p>
+        <p class="intro">日子一樣的時候，先離題三分鐘。選一個你現在的狀態，每個狀態有 50 題，沒有測驗結果，也沒有建議清單，只有一個問題，和一個小小的出口。</p>
         <div class="scene-row" role="group" aria-label="選擇現在的狀態">{scenes}</div>
         <div class="prompt-card">
           <p class="q" id="promptQ"></p>
           <p class="practice" id="promptP"></p>
           <button class="shuffle-btn" id="shuffleBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>換一題</button>
+          <div class="today-share">
+            <span class="today-share-label">分享這一題，給朋友或給自己</span>
+            <div class="today-share-row">{today_btns}</div>
+            <p class="today-feedback" id="todayFeedback" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>

@@ -8,31 +8,134 @@
   var todayEl = document.getElementById("todayData");
   if (todayEl) {
     var TODAY = JSON.parse(todayEl.textContent);
-    var sceneIdx = 0, promptIdx = 0;
     var sceneBtns = document.querySelectorAll(".scene-btn");
-    var showPrompt = function () {
-      var list = TODAY.prompts[sceneIdx];
-      var item = list[promptIdx % list.length];
-      document.getElementById("promptQ").textContent = item.q;
-      document.getElementById("promptP").innerHTML = item.p;
+    var todaySection = document.getElementById("today");
+    var siteUrl = todaySection.getAttribute("data-url");
+    /* 每個情境各自洗牌，一輪 50 題看完才會重複 */
+    var decks = TODAY.prompts.map(function () { return []; });
+    var deal = function (s) {
+      if (!decks[s].length) {
+        var order = TODAY.prompts[s].map(function (_, i) { return i; });
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1)), t = order[i]; order[i] = order[j]; order[j] = t;
+        }
+        decks[s] = order;
+      }
+      return decks[s].shift();
     };
+    var sceneIdx = 0, promptIdx = 0;
+    var showPrompt = function () {
+      var item = TODAY.prompts[sceneIdx][promptIdx];
+      document.getElementById("promptQ").textContent = item.q;
+      document.getElementById("promptP").innerHTML = "";
+      var strong = document.createElement("strong");
+      strong.textContent = "今日練習：";
+      document.getElementById("promptP").appendChild(strong);
+      document.getElementById("promptP").appendChild(document.createTextNode(item.p));
+      sceneBtns.forEach(function (x) { x.classList.toggle("active", parseInt(x.getAttribute("data-scene"), 10) === sceneIdx); });
+      var fbk = document.getElementById("todayFeedback"); if (fbk) fbk.textContent = "";
+    };
+    var setScene = function (s) { sceneIdx = s; promptIdx = deal(s); showPrompt(); };
     sceneBtns.forEach(function (b) {
       b.addEventListener("click", function () {
-        sceneBtns.forEach(function (x) { x.classList.remove("active"); });
-        b.classList.add("active");
-        sceneIdx = parseInt(b.getAttribute("data-scene"), 10);
-        promptIdx = 0;
-        showPrompt();
+        setScene(parseInt(b.getAttribute("data-scene"), 10));
         track("today_scene", { scene: TODAY.scenes[sceneIdx] });
       });
     });
     var shuffle = document.getElementById("shuffleBtn");
     if (shuffle) shuffle.addEventListener("click", function () {
-      promptIdx = (promptIdx + 1) % TODAY.prompts[sceneIdx].length;
+      promptIdx = deal(sceneIdx);
       showPrompt();
       track("today_shuffle", { scene: TODAY.scenes[sceneIdx] });
     });
-    showPrompt();
+    /* 分享連結 ?s=情境&p=題號 會直接打開那一題 */
+    var qs = new URLSearchParams(location.search);
+    var qsS = parseInt(qs.get("s"), 10), qsP = parseInt(qs.get("p"), 10);
+    if (TODAY.prompts[qsS] && TODAY.prompts[qsS][qsP]) {
+      sceneIdx = qsS; promptIdx = qsP; showPrompt();
+      setTimeout(function () { todaySection.scrollIntoView({ behavior: "smooth" }); }, 300);
+    } else {
+      setScene(0);
+    }
+
+    /* ---------- 今天聊什麼：分享 ---------- */
+    var promptLink = function (source) {
+      return siteUrl + "?s=" + sceneIdx + "&p=" + promptIdx + "&utm_source=" + source + "&utm_medium=share&utm_campaign=today#today";
+    };
+    var promptText = function () {
+      var item = TODAY.prompts[sceneIdx][promptIdx];
+      return "【" + TODAY.scenes[sceneIdx] + "】" + item.q + "\n今日練習：" + item.p + "\n——離題生活・今天聊什麼";
+    };
+    var tfb = function (m) { document.getElementById("todayFeedback").textContent = m; };
+    var tcopy = function (text, msg) {
+      var done = function () { tfb(msg); };
+      var fallback = function () {
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) { tfb("複製失敗，請再試一次。"); }
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    };
+    var twin = function (u) { window.open(u, "_blank", "noopener,width=680,height=680"); };
+    var tWrap = function (ctx, text, maxW) {
+      var lines = [], line = "";
+      for (var i = 0; i < text.length; i++) {
+        var ch = text.charAt(i);
+        if (ctx.measureText(line + ch).width > maxW && line) { lines.push(line); line = ch; } else line += ch;
+      }
+      if (line) lines.push(line);
+      return lines;
+    };
+    var todayCard = function () {
+      var item = TODAY.prompts[sceneIdx][promptIdx];
+      var c = document.createElement("canvas"); c.width = 1080; c.height = 1350;
+      var x = c.getContext("2d");
+      x.fillStyle = "#232220"; x.fillRect(0, 0, 1080, 1350);
+      x.strokeStyle = "#3a3935"; x.lineWidth = 2; x.strokeRect(48, 48, 984, 1254);
+      x.textAlign = "left";
+      x.fillStyle = "#e3b7a9"; x.font = "700 26px 'Noto Sans TC', sans-serif";
+      x.fillText("T O D A Y ' S   T O P I C　｜　" + TODAY.scenes[sceneIdx], 110, 170);
+      x.font = "600 62px 'Noto Serif TC', serif";
+      var qL = tWrap(x, item.q, 860).slice(0, 5);
+      x.font = "400 36px 'Noto Sans TC', sans-serif";
+      var pL = tWrap(x, item.p, 860).slice(0, 6);
+      var blockH = qL.length * 92 + 50 + 62 + pL.length * 58;
+      var y = Math.max(300, 230 + (900 - blockH) / 2 + 60);
+      x.fillStyle = "#ffffff"; x.font = "600 62px 'Noto Serif TC', serif";
+      qL.forEach(function (ln) { x.fillText(ln, 110, y); y += 92; });
+      y += 50;
+      x.fillStyle = "#e3b7a9"; x.font = "700 32px 'Noto Sans TC', sans-serif";
+      x.fillText("今日練習", 110, y); y += 62;
+      x.fillStyle = "#cfcabe"; x.font = "400 36px 'Noto Sans TC', sans-serif";
+      pL.forEach(function (ln) { x.fillText(ln, 110, y); y += 58; });
+      x.fillStyle = "#ece9e2"; x.font = "600 34px 'Noto Serif TC', serif";
+      x.fillText("離題生活", 110, 1220);
+      x.fillStyle = "#8a867c"; x.font = "500 22px 'Noto Sans TC', sans-serif";
+      x.fillText("日子重複的時候，就離題一下", 110, 1262);
+      return c;
+    };
+    document.querySelectorAll("[data-today-share]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var k = btn.getAttribute("data-today-share");
+        track("share", { method: k, item_id: "today-" + sceneIdx + "-" + promptIdx, content_type: "today_prompt" });
+        if (k === "line") twin("https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(promptLink("line")) + "&text=" + encodeURIComponent(promptText()));
+        else if (k === "facebook") twin("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(promptLink("facebook")) + "&quote=" + encodeURIComponent(promptText()));
+        else if (k === "threads") twin("https://www.threads.net/intent/post?text=" + encodeURIComponent(promptText() + "\n" + promptLink("threads")));
+        else if (k === "copy") tcopy(promptText() + "\n" + promptLink("copy"), "已複製，可以貼給朋友，或貼在備忘錄留給自己。");
+        else if (k === "card") {
+          var save = function () {
+            var a = document.createElement("a");
+            a.download = "liti-today-" + sceneIdx + "-" + promptIdx + ".png";
+            a.href = todayCard().toDataURL("image/png");
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            tfb("圖卡已下載，可以發 IG 限時動態，或存起來當今天的提醒。");
+          };
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(save); else save();
+        }
+      });
+    });
   }
 
   /* ---------- 全部文章：分類篩選與搜尋 ---------- */
