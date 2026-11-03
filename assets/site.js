@@ -310,3 +310,23 @@
     io.observe(articleEnd);
   }
 })();
+
+/* ---------- 離友內心戲投稿 ---------- */
+(function () {
+  var f = document.getElementById("submitForm");
+  if (!f) return;
+  var msg = document.getElementById("submitMsg");
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = function (n) { var el = f.elements[n]; return el ? (el.value || "").trim() : ""; };
+    var scene = (f.querySelector('input[name="scene"]:checked') || {}).value || "";
+    if (!v("story") && !v("thought")) { msg.textContent = "至少寫一下場景，或你心裡演的那句。"; msg.className = "submit-msg is-error"; return; }
+    if (!f.elements.agree.checked) { msg.textContent = "請勾選同意改寫並匿名刊登，我們才能使用這段內心戲。"; msg.className = "submit-msg is-error"; return; }
+    var body = "【發生在哪裡】" + scene + "\n\n【那個場景】\n" + v("story") + "\n\n【我嘴上說的】\n" + v("said") +
+      "\n\n【我心裡演的】\n" + v("thought") + "\n\n【刊出暱稱】" + (v("nick") || "（不署名）") + "\n\n我同意離題生活改寫並匿名刊登這段內容。";
+    try { if (window.gtag) window.gtag("event", "submit_story", { scene: scene }); } catch (err) {}
+    location.href = "mailto:" + f.getAttribute("data-email") + "?subject=" + encodeURIComponent("離友內心戲投稿｜" + scene) + "&body=" + encodeURIComponent(body);
+    msg.textContent = "已經幫你打開電子郵件，按下寄出就完成了。謝謝你的內心戲！";
+    msg.className = "submit-msg";
+  });
+})();

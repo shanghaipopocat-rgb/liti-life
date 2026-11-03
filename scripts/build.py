@@ -127,7 +127,7 @@ def masthead(r, compact):
 
 def nav(r, current=""):
     items = [(c["name"], cat_url(r, c["name"]), "") for c in SITE["categories"]]
-    items += [("全部文章", f"{r}articles/", ""), ("今天聊什麼", f"{r}#today", "accent-link"), ("關於離題", f"{r}about/", "")]
+    items += [("全部文章", f"{r}articles/", ""), ("今天聊什麼", f"{r}#today", "accent-link"), ("離友內心戲", f"{r}submit/", ""), ("關於離題", f"{r}about/", "")]
     links = "".join(
         f'<a href="{u}"{" class=%s" % chr(34)+cls+chr(34) if cls else ""}{" aria-current=%spage%s" % (chr(34),chr(34)) if name==current else ""}>{name}</a>'
         for name, u, cls in items)
@@ -309,7 +309,7 @@ def build_all_articles():
           <input type="search" id="searchInput" placeholder="搜尋文章關鍵字" aria-label="搜尋文章" /></label>
       </div>
       <div class="grid" id="articleGrid">{"".join(card(r,a) for a in ARTS)}</div>
-      <div class="empty-state" id="emptyState"><div class="big">這一題，還沒有人寫</div><p>換個關鍵字，或回到全部分類看看。也歡迎<a href="{r}about/#open-call" style="color:var(--accent)">寫給我們</a>。</p></div>
+      <div class="empty-state" id="emptyState"><div class="big">這一題，還沒有人寫</div><p>換個關鍵字，或回到全部分類看看。也歡迎<a href="{r}submit/" style="color:var(--accent)">投稿你的內心戲</a>。</p></div>
       <div style="height:70px"></div>
     </main>''' + footer(r) + tail(r)
     write("articles/index.html", page)
@@ -402,6 +402,51 @@ def build_subscribed():
     <script>try{{gtag("event","sign_up",{{method:"newsletter"}});}}catch(e){{}}</script>''' + footer(r) + tail(r)
     write("subscribed/index.html", page)
 
+def build_submit():
+    r = "../"
+    m = SITE["email"]
+    scenes = ["工作", "朋友", "家人", "感情", "一個人的時候", "其他"]
+    opts = "".join(f'<label class="scene-opt"><input type="radio" name="scene" value="{x}"{" checked" if i==0 else ""} /> {x}</label>' for i, x in enumerate(scenes))
+    page = head(r, f'離友內心戲｜{SITE["name"]}', "那些你在心裡演了一整齣、嘴上只說「沒事」的戲，寫給我們。匿名投稿，挑選改寫後刊在離題生活。", f"{BASE}/submit/") + masthead(r, True) + nav(r, "離友內心戲") + f'''
+    <main class="wrap">
+      <div class="crumb"><a href="{r}">首頁</a>　/　離友內心戲</div>
+      <div class="page-simple submit-page">
+        <span class="role" style="font-size:12px;letter-spacing:.34em;color:var(--accent);font-weight:700;">OPEN CALL</span>
+        <h1>離友內心戲</h1>
+        <p class="submit-lead">那些你在心裡演了一整齣、嘴上只說「沒事」的戲，寫給我們。</p>
+
+        <h2>怎麼投稿</h2>
+        <ol class="submit-steps">
+          <li><strong>寫一段說不出口的內心戲</strong>：一個場景，加上一句你沒說出口的話就夠了，不用寫成文章。</li>
+          <li><strong>我們挑選、改寫</strong>：加上一句吐槽，刊在網站或離題生活的社群上。</li>
+          <li><strong>一律匿名</strong>：人名、公司、地點都會改掉，刊出時只用你留的暱稱，不留也可以。</li>
+        </ol>
+
+        <h2>不知道寫什麼？從這幾句開始</h2>
+        <ul class="submit-prompts">
+          <li>主管說「這個很簡單」的時候，我心裡想的是……</li>
+          <li>朋友問我最近好嗎，我說還好，其實……</li>
+          <li>家族群組又傳來長輩圖，我已讀不回，因為……</li>
+          <li>我說「好啊，下次約」的時候，心裡在想……</li>
+        </ul>
+
+        <h2>寫給我們</h2>
+        <form class="submit-form" id="submitForm" data-email="{m}" novalidate>
+          <fieldset><legend>發生在哪裡</legend><div class="scene-opts">{opts}</div></fieldset>
+          <label>那個場景<span class="hint">發生了什麼事？兩三句就好</span>
+            <textarea name="story" rows="4" placeholder="例：週一開會，主管說這個案子很簡單，下週就要。"></textarea></label>
+          <label>你嘴上說的<input type="text" name="said" placeholder="例：好，沒問題。" /></label>
+          <label>你心裡演的<span class="hint">最想說、卻沒說出口的那句</span>
+            <textarea name="thought" rows="3" placeholder="例：簡單的話，你怎麼不自己做？"></textarea></label>
+          <label>刊出時的暱稱（可留空）<input type="text" name="nick" placeholder="例：會議室的盆栽" /></label>
+          <label class="agree"><input type="checkbox" name="agree" /> 我同意離題生活改寫並匿名刊登這段內容</label>
+          <button type="submit">寄出我的內心戲</button>
+          <p class="submit-msg" id="submitMsg" role="status" aria-live="polite">按下寄出會打開你的電子郵件，內容已經幫你填好，寄到 {m}。</p>
+        </form>
+      </div>
+    </main>''' + subscribe() + footer(r) + tail(r)
+    write("submit/index.html", page)
+
 def build_404():
     # GitHub Pages 的 404 可能出現在任何路徑，所以用絕對網址
     r = BASE + "/"
@@ -412,7 +457,7 @@ def build_404():
 
 def build_sitemap():
     urls = [f"{BASE}/", f"{BASE}/articles/", f"{BASE}/about/"] + \
-           [f'{BASE}/columns/{c["slug"]}/' for c in SITE["categories"]] + \
+           [f'{BASE}/columns/{c["slug"]}/' for c in SITE["categories"]] + [f"{BASE}/submit/"] + \
            [f'{BASE}/articles/{a["id"]}/' for a in ARTS]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
           "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n"
@@ -421,6 +466,6 @@ def build_sitemap():
 
 if __name__ == "__main__":
     build_home(); build_all_articles(); build_categories(); build_article_pages()
-    build_about(); build_subscribed(); build_404(); build_sitemap()
+    build_about(); build_subscribed(); build_submit(); build_404(); build_sitemap()
     write(".nojekyll", "")
     print(f"完成：{len(ARTS)} 篇文章，{len(SITE['categories'])} 個分類")

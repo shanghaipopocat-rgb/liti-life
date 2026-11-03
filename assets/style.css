@@ -584,3 +584,26 @@ nav.mainnav a[aria-current="page"] { color: #fff; box-shadow: inset 0 -2px 0 #e3
 .today-feedback { margin: 12px 0 0; font-size: 13px; color: #e3b7a9; min-height: 1.4em; }
 @media (max-width: 600px) { .today-share-btn { flex: 1 1 calc(50% - 10px); justify-content: center; } }
 .article .body p.tagline { font-family: var(--serif); color: var(--accent); font-size: 18px; font-weight: 600; letter-spacing: 0.06em; margin: 34px 0 0; }
+
+/* 離友內心戲 */
+.submit-lead { font-family: var(--serif); font-size: 20px !important; color: var(--ink) !important; line-height: 1.7 !important; }
+.submit-steps, .submit-prompts { color: var(--ink-soft); font-size: 16px; line-height: 1.9; padding-left: 1.3em; }
+.submit-steps li, .submit-prompts li { margin-bottom: 8px; }
+.submit-prompts li { font-family: var(--serif); color: var(--ink); }
+.submit-form { display: flex; flex-direction: column; gap: 20px; margin-top: 12px; background: var(--warm); padding: 32px 30px; }
+.submit-form fieldset { border: none; padding: 0; margin: 0; }
+.submit-form legend, .submit-form > label { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: 0.06em; display: flex; flex-direction: column; gap: 8px; }
+.submit-form legend { margin-bottom: 10px; }
+.submit-form .hint { font-weight: 400; font-size: 13px; color: var(--ink-faint); letter-spacing: 0.04em; }
+.submit-form input[type=text], .submit-form textarea { font-family: inherit; font-size: 15.5px; border: 1px solid #cfc9bc; background: #fff; padding: 12px 14px; color: var(--ink); outline: none; resize: vertical; font-weight: 400; }
+.submit-form input[type=text]:focus, .submit-form textarea:focus { border-color: var(--ink); }
+.scene-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.scene-opt { border: 1px solid #cfc9bc; background: var(--paper); padding: 8px 14px; font-size: 14px; color: var(--ink-soft); cursor: pointer; }
+.scene-opt input { accent-color: var(--accent); }
+.submit-form label.agree { flex-direction: row; align-items: center; font-weight: 400; font-size: 14.5px; color: var(--ink-soft); }
+.submit-form label.agree input { accent-color: var(--accent); width: 17px; height: 17px; }
+.submit-form button { align-self: flex-start; background: var(--ink); color: #fff; border: none; font-size: 14.5px; letter-spacing: 0.2em; padding: 13px 30px; }
+.submit-form button:hover { background: var(--accent); }
+.submit-msg { font-size: 13.5px !important; color: var(--ink-faint) !important; margin: 0 !important; }
+.submit-msg.is-error { color: var(--accent) !important; font-weight: 700; }
+@media (max-width: 600px) { .submit-form { padding: 24px 18px; } .submit-form button { align-self: stretch; } }
