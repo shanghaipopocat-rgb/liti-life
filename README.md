@@ -12,7 +12,7 @@
 | 分類：生活異思／荒謬觀察／人生練習 | `columns/rethink/`、`columns/absurd/`、`columns/practice/` |
 | 關於離題（含徵稿、合作） | `about/` |
 
-所有頁面都已裝上 Google Analytics（G-36DVDGNFQL）。
+所有頁面都已裝上 Google Analytics（G-B2XKTVK0JB）。
 
 ## 平常怎麼改內容
 
