@@ -186,10 +186,11 @@ def body_html(a):
         if isinstance(b, str): out.append(f"<p>{e(b)}</p>")
         elif "quote" in b: out.append(f'<blockquote class="epigraph"><p>「{e(b["quote"])}」</p><cite>—— {e(b["cite"])}</cite></blockquote>')
         elif "heading" in b: out.append(f'<h2 class="subhead">{e(b["heading"])}</h2>')
+        elif "tagline" in b: out.append(f'<p class="tagline">{e(b["tagline"])}</p>')
         elif "practiceCards" in b:
             cs = "".join(
                 f'<article class="practice-card"><div class="practice-card-top"><span class="practice-card-kicker">{e(b.get("kicker","辦公室界線版"))}</span>'
-                f'<span class="practice-card-num">{e(c["num"])}</span></div><h4>{e(c["title"])}：</h4><p>{e(c["text"])}</p>'
+                f'<span class="practice-card-num">{e(c["num"])}</span></div><h4>{e(c["title"])}{"" if (c["title"].startswith("「") and c["title"].endswith("」")) else "："}</h4><p>{e(c["text"])}</p>'
                 f'<div class="practice-card-foot"><span>離題生活</span><span>INDEPENDENT LIFE JOURNAL</span></div></article>'
                 for c in b["practiceCards"])
             out.append(f'<div class="practice-cards">{cs}</div>')
