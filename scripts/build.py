@@ -383,7 +383,7 @@ def build_about():
         <p>{SITE["aboutWho"]}</p>
         <h2 id="open-call">離題徵集 <span class="about-en">OPEN CALL</span></h2>
         <p>{SITE["openCall"]}</p>
-        <p class="about-contact"><a href="mailto:{m}?subject=離題徵集">{m}</a></p>
+        <p class="about-contact"><a href="{r}submit/">投稿「離友內心戲」</a>　或來信 <a href="mailto:{m}?subject=離題徵集">{m}</a></p>
         <h2 id="collab">合作邀約 <span class="about-en">COLLABORATION</span></h2>
         <p>{SITE["collab"]}</p>
         <p class="about-contact"><a href="mailto:{m}?subject=合作邀約">{m}</a></p>
