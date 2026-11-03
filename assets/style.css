@@ -724,3 +724,6 @@ footer .copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--
 .author-text .author-sub .intro { font-family: inherit; font-size: 15px; line-height: 1.7; color: var(--ink-soft); margin: 0; }
 .author-text .author-sub .subscribe-msg { font-family: inherit; font-size: 13.5px; line-height: 1.6; color: var(--ink-faint); margin: 12px 0 0; }
 .author-text .author-sub .subscribe-msg.is-error { color: var(--accent); }
+
+/* 文末落款 */
+.article .byline { margin: 28px 0 0; font-size: 13px; letter-spacing: 0.16em; color: var(--ink-faint); }

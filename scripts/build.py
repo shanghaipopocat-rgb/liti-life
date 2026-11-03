@@ -393,6 +393,7 @@ def build_article_pages():
         <div class="body">
           {body_html(a)}
         </div>
+        <p class="byline">{e(a.get("byline", "文／" + SITE.get("author", {}).get("name", "黎題")))}</p>
         <div id="articleEnd" data-slug="{a["id"]}"></div>
         {share_bar(a, url)}
       </article>
@@ -413,6 +414,8 @@ def build_about():
       <div class="page-simple">
         <h1>關於離題</h1>
         <p>{SITE["aboutWho"]}</p>
+        <h2 id="writer">寫的人 <span class="about-en">WHO WRITES</span></h2>
+        <p><strong>黎題</strong>，離題生活主筆。{e(SITE["author"]["lines"][0].split("。",1)[1]) if SITE.get("author") else ""}</p>
         <h2 id="open-call">離題徵集 <span class="about-en">OPEN CALL</span></h2>
         <p>{SITE["openCall"]}</p>
         <p class="about-contact"><a href="{r}submit/">投稿「離友內心戲」</a>　或來信 <a href="mailto:{m}?subject=離題徵集">{m}</a></p>
