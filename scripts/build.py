@@ -12,6 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 C = ROOT / "content"
+import hashlib
+ASSET_V = hashlib.md5((Path(__file__).resolve().parent.parent / "assets" / "style.css").read_bytes() + (Path(__file__).resolve().parent.parent / "assets" / "site.js").read_bytes()).hexdigest()[:8]
 SITE = json.loads((C / "site.json").read_text(encoding="utf-8"))
 ARTS = json.loads((C / "articles.json").read_text(encoding="utf-8"))
 TODAY = json.loads((C / "today.json").read_text(encoding="utf-8"))
@@ -89,7 +91,7 @@ def head(r, title, desc, url, image=None, og_type="website"):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{r}assets/style.css" />
+    <link rel="stylesheet" href="{r}assets/style.css?v={ASSET_V}" />
   </head>
   <body>'''
 
@@ -189,7 +191,7 @@ def footer(r):
     </footer>'''
 
 def tail(r, extra=""):
-    return f'{extra}\n    <script src="{r}assets/site.js" defer></script>\n  </body>\n</html>\n'
+    return f'{extra}\n    <script src="{r}assets/site.js?v={ASSET_V}" defer></script>\n  </body>\n</html>\n'
 
 def write(path, content):
     p = ROOT / path
